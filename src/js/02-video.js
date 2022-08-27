@@ -6,8 +6,9 @@ const iframe = document.querySelector('iframe');
 
 const player = new Player(iframe);
 
-player.on('play', function () {
+player.on('timeupdate', function () {
   console.log('played the video!');
+  console.log(duration, percent);
 });
 
 player.getVideoTitle().then(function (title) {
@@ -18,14 +19,14 @@ player.getVideoTitle().then(function (title) {
 
 
 
-const onTimeupdate = function (data) {
+// const onTimeupdate = function (data) {
   
   // {
   //   duration: 61.857;
   //   percent: 0.049;
   // }
-  console.log(duration, percent);
+  // console.log(duration, percent);
   // localStorage.set('videoplayer-current-time', );
-};
+// };
 
-player.on('timeupdate', onTimeupdate);
+// player.on('timeupdate', onTimeupdate);
