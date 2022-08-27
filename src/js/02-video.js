@@ -16,14 +16,16 @@ player.getVideoTitle().then(function (title) {
 
 // Метод on() та подія timeupdate 
 
+
+
 const onTimeupdate = function (data) {
   
-  {
-    duration: 61.857;
-    percent: 0.049;
-    seconds: 3.034;
-  }
-  console.log(111);
+  // {
+  //   duration: 61.857;
+  //   percent: 0.049;
+  // }
+  console.log(duration, percent);
+  // localStorage.set('videoplayer-current-time', );
 };
 
 player.on('timeupdate', onTimeupdate);
