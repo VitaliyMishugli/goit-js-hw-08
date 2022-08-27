@@ -6,13 +6,15 @@ import Player from '@vimeo/player';
    loop: true,
  };
 
- const player = new Vimeo.Player('made-in-ny', options);
-
- player.setVolume(0);
+ const player = new Player('handstick', {
+   id: 19231868,
+   width: 640,
+ });
 
  player.on('play', function () {
    console.log('played the video!');
  });
+
 
 // ============
 // const iframe = document.querySelector('iframe');
