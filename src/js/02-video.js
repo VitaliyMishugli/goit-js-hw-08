@@ -1,32 +1,31 @@
+import throttle from 'lodash.throttle';
 import Player from '@vimeo/player';
 
-
 const iframe = document.querySelector('iframe');
-// const player = new Vimeo.Player(iframe);
 
 const player = new Player(iframe);
 
-player.on('timeupdate', function () {
-  console.log('played the video!');
-  console.log(duration, percent);
-});
+player.on('timeupdate', throttle(playerBackTime, 1000));
 
-player.getVideoTitle().then(function (title) {
-  console.log('title:', title);
-});
+function playerBackTime(data) {
+  localStorage.clear();
+  localStorage.setItem('videoplayer-current-time', data.seconds);
+}
 
-// Метод on() та подія timeupdate 
+player
+  .setCurrentTime(localStorage.getItem('videoplayer-current-time'))
+  .then(function (seconds) {
+    // seconds = the actual time that the player seeked to
+    console.log(seconds);
+  })
+  .catch(function (error) {
+    switch (error.name) {
+      case 'RangeError':
+        // the time was less than 0 or greater than the video’s duration
+        break;
 
-
-
-// const onTimeupdate = function (data) {
-  
-  // {
-  //   duration: 61.857;
-  //   percent: 0.049;
-  // }
-  // console.log(duration, percent);
-  // localStorage.set('videoplayer-current-time', );
-// };
-
-// player.on('timeupdate', onTimeupdate);
+      default:
+        // some other error occurred
+        break;
+    }
+  });
