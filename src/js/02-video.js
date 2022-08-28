@@ -12,6 +12,8 @@ function playerBackTime(data) {
   localStorage.setItem('videoplayer-current-time', data.seconds);
 }
 
+const savedData = localStorage.getItem('videoplayer-current-time');
+
 if (savedData) {
   player
     .setCurrentTime(localStorage.getItem('videoplayer-current-time'))
