@@ -19,14 +19,22 @@ function onFormSubmit(e) {
 }
 
 function onFormData(e) {
-  formData[e.target.name] = e.target.value;
-  localStorage.setItem(FORM_STATE, JSON.stringify(formData));
+  let persistedData = localStorage.getItem(FORM_STATE);
+  persistedData = persistedData ? JSON.parse(persistedData) : {};
+  persistedData[e.target.name] = e.target.value;
+  localStorage.setItem(FORM_STATE, JSON.stringify(persistedData));
 }
 
 function populateSavedData() {
-  const savedData = JSON.parse(localStorage.getItem(FORM_STATE));
-  if (savedData) {
-    email.value = savedData.email;
-    textarea.value = savedData.message;
+  let persistedData = localStorage.getItem(FORM_STATE);
+  if (persistedData) {
+    persistedData = JSON.parse(persistedData);
+    Object.entries(persistedData).forEach(([name, value]) => {
+      form.elements[name].value = value;
+      localStorage.setItem(FORM_STATE, JSON.stringify(persistedData));
+    });
+  }
+  else {
+    persistedData = {};
   }
 }
